@@ -56,6 +56,10 @@ input("Aperte Enter para continuar...")
 def column_to_list(data, index):
     column_list = []
     # Dica: Você pode usar um for para iterar sobre as amostras, pegar a feature pelo seu índice, e dar append para uma lista
+    
+    for i in range(len(data)):
+        column_list.append(data[i][-2])
+    
     return column_list
 
 # Vamos checar com os gêneros se isso está funcionando (apenas para os primeiros 20)
@@ -76,6 +80,9 @@ input("Aperte Enter para continuar...")
 male = 0
 female = 0
 
+male = len(list(filter(lambda x: x[-2]=='Male', data_list)))
+print(male)
+female = len(list(filter(lambda x: x[-2]=='Female', data_list)))
 
 # Verificando o resultado
 print("\nTAREFA 4: Imprimindo quantos masculinos e femininos nós encontramos")
@@ -87,12 +94,19 @@ assert male == 935854 and female == 298784, "TAREFA 4: A conta não bate."
 
 input("Aperte Enter para continuar...")
 # Por que nós não criamos uma função para isso?
+#%%
 # TAREFA 5
 # TODO: Crie uma função para contar os gêneros. Retorne uma lista.
 # Isso deveria retornar uma lista com [count_male, count_female] (exemplo: [10, 15] significa 10 Masculinos, 15 Femininos)
 def count_gender(data_list):
     male = 0
     female = 0
+    
+    male = len(list(filter(lambda x: x[-2]=='Male', data_list)))
+
+    female = len(list(filter(lambda x: x[-2]=='Female', data_list)))
+
+    
     return [male, female]
 
 
@@ -107,11 +121,13 @@ assert count_gender(data_list)[0] == 935854 and count_gender(data_list)[1] == 29
 
 input("Aperte Enter para continuar...")
 # Agora que nós podemos contar os usuários, qual gênero é mais prevalente?
+#%%
 # TAREFA 6
 # TODO: Crie uma função que pegue o gênero mais popular, e retorne este gênero como uma string.
 # Esperamos ver "Male", "Female", ou "Equal" como resposta.
 def most_popular_gender(data_list):
     answer = ""
+
     return answer
 
 
@@ -136,12 +152,14 @@ plt.title('Quantidade por Gênero')
 plt.show(block=True)
 
 input("Aperte Enter para continuar...")
+#%%
 # TAREFA 7
 # TODO: Crie um gráfico similar para user_types. Tenha certeza que a legenda está correta.
 print("\nTAREFA 7: Verifique o gráfico!")
 
 
 input("Aperte Enter para continuar...")
+#%%
 # TAREFA 8
 # TODO: Responda a seguinte questão
 male, female = count_gender(data_list)
@@ -156,6 +174,7 @@ assert answer != "Escreva sua resposta aqui.", "TAREFA 8: Escreva sua própria r
 
 input("Aperte Enter para continuar...")
 # Vamos trabalhar com trip_duration (duração da viagem) agora. Não conseguimos tirar alguns valores dele.
+#%%
 # TAREFA 9
 # TODO: Ache a duração de viagem Mínima, Máxima, Média, e Mediana.
 # Você não deve usar funções prontas para isso, como max() e min().
@@ -177,10 +196,11 @@ assert round(median_trip) == 670, "TAREFA 9: median_trip com resultado errado!"
 # -----------------------------------------------------
 
 input("Aperte Enter para continuar...")
+#%%
 # TAREFA 10
 # Gênero é fácil porque nós temos apenas algumas opções. E quanto a start_stations? Quantas opções ele tem?
 # TODO: Verifique quantos tipos de start_stations nós temos, usando set()
-start_stations = set()
+start_stations = set(list(map(lambda x: x[4], data_list)))
 
 print("\nTAREFA 10: Imprimindo as start stations:")
 print(len(start_stations))
@@ -191,6 +211,7 @@ assert len(start_stations) == 582, "TAREFA 10: Comprimento errado de start stati
 # -----------------------------------------------------
 
 input("Aperte Enter para continuar...")
+#%%
 # TAREFA 11
 # Volte e tenha certeza que você documentou suas funções. Explique os parâmetros de entrada, a saída, e o que a função faz. Exemplo:
 # def new_function(param1: int, param2: str) -> list:
