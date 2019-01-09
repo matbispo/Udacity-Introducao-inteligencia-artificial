@@ -3,10 +3,11 @@
 # Começando com os imports
 import csv
 import matplotlib.pyplot as plt
+from collections import Counter
 #%%
 # Vamos ler os dados como uma lista
 print("Lendo o documento...")
-with open("chicago.csv", "r") as file_read:
+with open("D:\\estudo\\Udacity-Introducao-inteligencia-artificial\\chicago.csv", "r") as file_read:
     reader = csv.reader(file_read)
     data_list = list(reader)
 print("Ok!")
@@ -127,7 +128,9 @@ input("Aperte Enter para continuar...")
 # Esperamos ver "Male", "Female", ou "Equal" como resposta.
 def most_popular_gender(data_list):
     answer = ""
-
+    counter = Counter(column_to_list(data_list, -2))
+    most_poplar = counter.most_common(1)
+    answer =most_poplar[0][0]
     return answer
 
 
@@ -157,6 +160,16 @@ input("Aperte Enter para continuar...")
 # TODO: Crie um gráfico similar para user_types. Tenha certeza que a legenda está correta.
 print("\nTAREFA 7: Verifique o gráfico!")
 
+gender_list = column_to_list(data_list, -3)
+types = ["Male", "Female"]
+quantity = count_gender(data_list)
+y_pos = list(range(len(types)))
+plt.bar(y_pos, quantity)
+plt.ylabel('Quantidade')
+plt.xlabel('Tipo de Usuario')
+plt.xticks(y_pos, types)
+plt.title('Quantidade por Tipo de Usuario')
+plt.show(block=True)
 
 input("Aperte Enter para continuar...")
 #%%
@@ -226,6 +239,7 @@ input("Aperte Enter para continuar...")
       """
 
 input("Aperte Enter para continuar...")
+#%%
 # TAREFA 12 - Desafio! (Opcional)
 # TODO: Crie uma função para contar tipos de usuários, sem definir os tipos
 # para que nós possamos usar essa função com outra categoria de dados.
