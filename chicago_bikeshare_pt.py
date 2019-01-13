@@ -55,6 +55,17 @@ input("Aperte Enter para continuar...")
 #%%
 # TAREFA 3
 # TODO: Crie uma função para adicionar as colunas(features) de uma lista em outra lista, na mesma ordem
+"""
+      Função column_to_list.
+      Descrição:
+          gera uma nova lista de dados utilizando o valor posicionado no indice passado como parametro de cada lista da lista de listas.
+      Argumentos:
+          data: lista de listas.
+          index: um indice de lista.
+      Retorna:
+          lista de dados.
+
+      """
 def column_to_list(data, index):
     column_list = []
     # Dica: Você pode usar um for para iterar sobre as amostras, pegar a feature pelo seu índice, e dar append para uma lista
@@ -108,6 +119,16 @@ input("Aperte Enter para continuar...")
 # TAREFA 5
 # TODO: Crie uma função para contar os gêneros. Retorne uma lista.
 # Isso deveria retornar uma lista com [count_male, count_female] (exemplo: [10, 15] significa 10 Masculinos, 15 Femininos)
+"""
+      Função count_gender.
+      Descrição:
+          conta a quantidade de vezes que cada genero aparece na lista
+      Argumentos:
+          data_list: lista de listas com os dados do dataset utilizado.
+      Retorna:
+          uma lista de inteiros que contem a contagem de recorrencia de cada genero.
+
+      """
 def count_gender(data_list):
     male = 0
     female = 0
@@ -134,11 +155,18 @@ input("Aperte Enter para continuar...")
 # TAREFA 6
 # TODO: Crie uma função que pegue o gênero mais popular, e retorne este gênero como uma string.
 # Esperamos ver "Male", "Female", ou "Equal" como resposta.
+"""
+      Função most_popular_gender.
+      Descrição:
+          verifica qual o genero com o maior numero de ocorrencia no dataset.
+      Argumentos:
+          data_list: lista de listas com os dados do dataset utilizado.
+      Retorna:
+          uma string que informa qual o genero mais recorrente.
+
+      """
 def most_popular_gender(data_list):
     answer = ""
-    #counter = Counter(column_to_list(data_list, -2))
-    #most_poplar = counter.most_common(1)
-    #answer =most_poplar[0][0]
     
     total_gender = count_gender(data_list)
     
@@ -172,7 +200,16 @@ input("Aperte Enter para continuar...")
 # TAREFA 7
 # TODO: Crie um gráfico similar para user_types. Tenha certeza que a legenda está correta.
 
+"""
+      Função count_items.
+      Descrição:
+          verifica e faz a contagem de quantas vezes cada valor aparece em uma lista.
+      Argumentos:
+          data_list: lista de listas com os dados do dataset utilizado.
+      Retorna:
+          duas listas: uma contendo quais são os valores presentes na lista e outra contendo a contagem de vezes que cada valor aparece.
 
+      """
 def count_items(column_list):
     item_types = []
     count_items = []
