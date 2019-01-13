@@ -59,7 +59,7 @@ def column_to_list(data, index):
     # Dica: Você pode usar um for para iterar sobre as amostras, pegar a feature pelo seu índice, e dar append para uma lista
     
     for i in range(len(data)):
-        column_list.append(data[i][-2])
+        column_list.append(data[i][index])
     
     return column_list
 
@@ -102,11 +102,10 @@ input("Aperte Enter para continuar...")
 def count_gender(data_list):
     male = 0
     female = 0
-    
-    male = len(list(filter(lambda x: x[-2]=='Male', data_list)))
+    genders = column_to_list(data_list, -2)
+    male = len(list(filter(lambda x: x=='Male', genders)))
 
-    female = len(list(filter(lambda x: x[-2]=='Female', data_list)))
-
+    female = len(list(filter(lambda x: x=='Female', genders)))
     
     return [male, female]
 
@@ -128,9 +127,14 @@ input("Aperte Enter para continuar...")
 # Esperamos ver "Male", "Female", ou "Equal" como resposta.
 def most_popular_gender(data_list):
     answer = ""
-    counter = Counter(column_to_list(data_list, -2))
-    most_poplar = counter.most_common(1)
-    answer =most_poplar[0][0]
+    #counter = Counter(column_to_list(data_list, -2))
+    #most_poplar = counter.most_common(1)
+    #answer =most_poplar[0][0]
+    
+    total_gender = count_gender(data_list)
+    
+    answer = 'Female' if total_gender[0] < total_gender[1] else('Male' if total_gender[0] > total_gender[1] else 'equal')
+              
     return answer
 
 
@@ -160,9 +164,9 @@ input("Aperte Enter para continuar...")
 # TODO: Crie um gráfico similar para user_types. Tenha certeza que a legenda está correta.
 print("\nTAREFA 7: Verifique o gráfico!")
 
-gender_list = column_to_list(data_list, -3)
-types = ["Male", "Female"]
-quantity = count_gender(data_list)
+user_types_list = column_to_list(data_list, -3)
+types = set(list(map(lambda x: x, user_types_list)))
+quantity = 
 y_pos = list(range(len(types)))
 plt.bar(y_pos, quantity)
 plt.ylabel('Quantidade')
@@ -175,10 +179,14 @@ input("Aperte Enter para continuar...")
 #%%
 # TAREFA 8
 # TODO: Responda a seguinte questão
+
+list_genders = set(list(map(lambda x: x, column_to_list(data_list, -2))))
+print(list_genders)
+
 male, female = count_gender(data_list)
 print("\nTAREFA 8: Por que a condição a seguir é Falsa?")
 print("male + female == len(data_list):", male + female == len(data_list))
-answer = "Escreva sua resposta aqui."
+answer = "porque existem valores em branco no dataset utilizado."
 print("resposta:", answer)
 
 # ------------ NÃO MUDE NENHUM CÓDIGO AQUI ------------
@@ -197,6 +205,10 @@ max_trip = 0.
 mean_trip = 0.
 median_trip = 0.
 
+min_trip = min(trip_duration_list)
+max_trip = max(trip_duration_list)
+mean_trip = sum(trip_duration_list)/len(trip_duration_list)
+median_trip = 
 
 print("\nTAREFA 9: Imprimindo o mínimo, máximo, média, e mediana")
 print("Min: ", min_trip, "Max: ", max_trip, "Média: ", mean_trip, "Mediana: ", median_trip)
