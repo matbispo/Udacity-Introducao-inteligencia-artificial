@@ -4,6 +4,7 @@
 import csv
 import matplotlib.pyplot as plt
 from collections import Counter
+from statistics import median
 #%%
 # Vamos ler os dados como uma lista
 print("Lendo o documento...")
@@ -81,9 +82,17 @@ input("Aperte Enter para continuar...")
 male = 0
 female = 0
 
-male = len(list(filter(lambda x: x[-2]=='Male', data_list)))
-print(male)
-female = len(list(filter(lambda x: x[-2]=='Female', data_list)))
+#ale = len(list(filter(lambda x: x[-2]=='Male', data_list)))
+#rint(male)
+#emale = len(list(filter(lambda x: x[-2]=='Female', data_list)))
+
+gender_list  = column_to_list(data_list, -2)
+
+for i in gender_list:
+    if(i == 'Male'):
+        male += 1
+    elif(i == 'Female'):
+        female += 1
 
 # Verificando o resultado
 print("\nTAREFA 4: Imprimindo quantos masculinos e femininos nós encontramos")
@@ -162,11 +171,27 @@ input("Aperte Enter para continuar...")
 #%%
 # TAREFA 7
 # TODO: Crie um gráfico similar para user_types. Tenha certeza que a legenda está correta.
+
+
+def count_items(column_list):
+    item_types = []
+    count_items = []
+    
+    counter = Counter(column_list)
+    x = dict(counter.most_common(len(set(column_list))))
+    
+    item_types = list(x.keys())
+    count_items = list(x.values())
+    #count_items = 
+    #for i in item_types:
+        
+    return item_types, count_items
+
 print("\nTAREFA 7: Verifique o gráfico!")
 
 user_types_list = column_to_list(data_list, -3)
-types = set(list(map(lambda x: x, user_types_list)))
-quantity = 
+#types = set(user_types_list)
+types, quantity = count_items(user_types_list)
 y_pos = list(range(len(types)))
 plt.bar(y_pos, quantity)
 plt.ylabel('Quantidade')
@@ -180,7 +205,7 @@ input("Aperte Enter para continuar...")
 # TAREFA 8
 # TODO: Responda a seguinte questão
 
-list_genders = set(list(map(lambda x: x, column_to_list(data_list, -2))))
+list_genders = set(column_to_list(data_list, -2))
 print(list_genders)
 
 male, female = count_gender(data_list)
@@ -199,16 +224,22 @@ input("Aperte Enter para continuar...")
 # TAREFA 9
 # TODO: Ache a duração de viagem Mínima, Máxima, Média, e Mediana.
 # Você não deve usar funções prontas para isso, como max() e min().
-trip_duration_list = column_to_list(data_list, 2)
+trip_duration_list = [float(item) for item in column_to_list(data_list, 2)]
 min_trip = 0.
 max_trip = 0.
 mean_trip = 0.
 median_trip = 0.
 
+print(type(trip_duration_list[0]))
+
 min_trip = min(trip_duration_list)
+print(min_trip)
 max_trip = max(trip_duration_list)
-mean_trip = sum(trip_duration_list)/len(trip_duration_list)
-median_trip = 
+print(max_trip)
+mean_trip = sum(trip_duration_list) / len(trip_duration_list)
+print(mean_trip)
+median_trip = median(sorted(trip_duration_list))
+print(median_trip)
 
 print("\nTAREFA 9: Imprimindo o mínimo, máximo, média, e mediana")
 print("Min: ", min_trip, "Max: ", max_trip, "Média: ", mean_trip, "Mediana: ", median_trip)
@@ -256,12 +287,9 @@ input("Aperte Enter para continuar...")
 # TODO: Crie uma função para contar tipos de usuários, sem definir os tipos
 # para que nós possamos usar essa função com outra categoria de dados.
 print("Você vai encarar o desafio? (yes ou no)")
-answer = "no"
+answer = "yes"
 
-def count_items(column_list):
-    item_types = []
-    count_items = []
-    return item_types, count_items
+### A função count_items foi movida para o exercicio 7 para que pudesse ser utilizada no exercicio 7.
 
 
 if answer == "yes":
