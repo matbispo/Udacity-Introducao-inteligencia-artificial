@@ -3,8 +3,8 @@
 # Começando com os imports
 import csv
 import matplotlib.pyplot as plt
-from collections import Counter
-from statistics import median
+#from collections import Counter
+#from statistics import median
 #%%
 # Vamos ler os dados como uma lista
 print("Lendo o documento...")
@@ -31,8 +31,8 @@ input("Aperte Enter para continuar...")
 # TODO: Imprima as primeiras 20 linhas usando um loop para identificar os dados.
 print("\n\nTAREFA 1: Imprimindo as primeiras 20 amostras")
 
-for i in range(20):
-    print("Indice: {} \n Lista: {}".format(i, data_list[i]))
+for index in range(20):
+    print("Indice: {} \n Lista: {}".format(index, data_list[index]))
 
 #%%
 # Vamos mudar o data_list para remover o cabeçalho dele.
@@ -46,8 +46,8 @@ input("Aperte Enter para continuar...")
 
 print("\nTAREFA 2: Imprimindo o gênero das primeiras 20 amostras")
 
-for i in range(20):
-    print("Indice: {} \n Lista: {}".format(i, data_list[i][-2]))
+for index, linha in enumerate(data_list[:20], start=1):
+    print("Indice: {} \n Lista: {}".format(index, data_list[index][-2]))
 
 # Ótimo! Nós podemos pegar as linhas(samples) iterando com um for, e as colunas(features) por índices.
 # Mas ainda é difícil pegar uma coluna em uma lista. Exemplo: Lista com todos os gêneros
@@ -55,7 +55,9 @@ input("Aperte Enter para continuar...")
 #%%
 # TAREFA 3
 # TODO: Crie uma função para adicionar as colunas(features) de uma lista em outra lista, na mesma ordem
-"""
+
+def column_to_list(data, index):
+    """
       Função column_to_list.
       Descrição:
           gera uma nova lista de dados utilizando o valor posicionado no indice passado como parametro de cada lista da lista de listas.
@@ -66,7 +68,6 @@ input("Aperte Enter para continuar...")
           lista de dados.
 
       """
-def column_to_list(data, index):
     column_list = []
     # Dica: Você pode usar um for para iterar sobre as amostras, pegar a feature pelo seu índice, e dar append para uma lista
     
@@ -99,10 +100,10 @@ female = 0
 
 gender_list  = column_to_list(data_list, -2)
 
-for i in gender_list:
-    if(i == 'Male'):
+for gender in gender_list:
+    if(gender == 'Male'):
         male += 1
-    elif(i == 'Female'):
+    elif(gender == 'Female'):
         female += 1
 
 # Verificando o resultado
@@ -119,7 +120,9 @@ input("Aperte Enter para continuar...")
 # TAREFA 5
 # TODO: Crie uma função para contar os gêneros. Retorne uma lista.
 # Isso deveria retornar uma lista com [count_male, count_female] (exemplo: [10, 15] significa 10 Masculinos, 15 Femininos)
-"""
+
+def count_gender(data_list):
+    """
       Função count_gender.
       Descrição:
           conta a quantidade de vezes que cada genero aparece na lista
@@ -129,7 +132,6 @@ input("Aperte Enter para continuar...")
           uma lista de inteiros que contem a contagem de recorrencia de cada genero.
 
       """
-def count_gender(data_list):
     male = 0
     female = 0
     genders = column_to_list(data_list, -2)
@@ -155,7 +157,9 @@ input("Aperte Enter para continuar...")
 # TAREFA 6
 # TODO: Crie uma função que pegue o gênero mais popular, e retorne este gênero como uma string.
 # Esperamos ver "Male", "Female", ou "Equal" como resposta.
-"""
+
+def most_popular_gender(data_list):
+    """
       Função most_popular_gender.
       Descrição:
           verifica qual o genero com o maior numero de ocorrencia no dataset.
@@ -165,7 +169,6 @@ input("Aperte Enter para continuar...")
           uma string que informa qual o genero mais recorrente.
 
       """
-def most_popular_gender(data_list):
     answer = ""
     
     total_gender = count_gender(data_list)
@@ -200,7 +203,9 @@ input("Aperte Enter para continuar...")
 # TAREFA 7
 # TODO: Crie um gráfico similar para user_types. Tenha certeza que a legenda está correta.
 
-"""
+
+def count_items(column_list):
+    """
       Função count_items.
       Descrição:
           verifica e faz a contagem de quantas vezes cada valor aparece em uma lista.
@@ -210,17 +215,21 @@ input("Aperte Enter para continuar...")
           duas listas: uma contendo quais são os valores presentes na lista e outra contendo a contagem de vezes que cada valor aparece.
 
       """
-def count_items(column_list):
     item_types = []
     count_items = []
     
-    counter = Counter(column_list)
-    x = dict(counter.most_common(len(set(column_list))))
+    #counter = Counter(column_list)
+    #x = dict(counter.most_common(len(set(column_list))))
     
-    item_types = list(x.keys())
-    count_items = list(x.values())
-    #count_items = 
-    #for i in item_types:
+    item_types = set(column_list)
+    #count_items = list(x.values())
+    
+    for index, item in enumerate(item_types):
+        count_items.append(0)
+        for value in column_list:
+            if(value == item):
+                count_items[index] += 1
+                
         
     return item_types, count_items
 
