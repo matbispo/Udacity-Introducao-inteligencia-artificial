@@ -276,15 +276,33 @@ max_trip = 0.
 mean_trip = 0.
 median_trip = 0.
 
-print(type(trip_duration_list[0]))
+#print(type(trip_duration_list[0]))
 
-min_trip = min(trip_duration_list)
+min_trip = 9999.
+for item in trip_duration_list:
+    if(item <= min_trip):
+        min_trip = item
+    
 print(min_trip)
-max_trip = max(trip_duration_list)
+
+for item in trip_duration_list:
+    if(item >= max_trip ):
+        max_trip = item
+    
 print(max_trip)
+
 mean_trip = sum(trip_duration_list) / len(trip_duration_list)
 print(mean_trip)
-median_trip = median(sorted(trip_duration_list))
+
+trip_duration_sorted_list = sorted(trip_duration_list)
+len_trip_duration_list = len(trip_duration_sorted_list)
+mid_list = int(len_trip_duration_list/2)
+
+if (len_trip_duration_list % 2 != 0):
+    median_trip = trip_duration_sorted_list[mid_list]
+else:
+    median_trip = (trip_duration_sorted_list[mid_list] + trip_duration_sorted_list[mid_list-1]) / 2
+
 print(median_trip)
 
 print("\nTAREFA 9: Imprimindo o mínimo, máximo, média, e mediana")
@@ -302,7 +320,7 @@ input("Aperte Enter para continuar...")
 # TAREFA 10
 # Gênero é fácil porque nós temos apenas algumas opções. E quanto a start_stations? Quantas opções ele tem?
 # TODO: Verifique quantos tipos de start_stations nós temos, usando set()
-start_stations = set(list(map(lambda x: x[4], data_list)))
+start_stations = set(column_to_list(data_list, 3))
 
 print("\nTAREFA 10: Imprimindo as start stations:")
 print(len(start_stations))
@@ -340,8 +358,10 @@ answer = "yes"
 
 if answer == "yes":
     # ------------ NÃO MUDE NENHUM CÓDIGO AQUI ------------
-    column_list = column_to_list(data_list, -2)
-    types, counts = count_items(column_list)
+    column_list = column_to_list(data_list, -2) #-2
+    
+    types, counts = count_items(column_list)   
+    #print(len(types))
     print("\nTAREFA 12: Imprimindo resultados para count_items()")
     print("Tipos:", types, "Counts:", counts)
     assert len(types) == 3, "TAREFA 12: Há 3 tipos de gênero!"
